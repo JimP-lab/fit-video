@@ -99,10 +99,10 @@
 
         // Function to display video in the scroll section
         function displayVideo(videoUrl, videoId) {
-            const videoContainer = document.getElementById('videoContainer');
+            const videoContainer = document.getElementById("videoContainer");
             
-            const videoItem = document.createElement('div');
-            videoItem.classList.add('video-item', 'text-center', 'my-3');
+            const videoItem = document.createElement("div");
+            videoItem.classList.add("video-item", "text-center", "my-3");
             videoItem.innerHTML = `
                 <video src="${videoUrl}" controls class="mb-2"></video>
                 <button class="btn btn-info btn-sm mb-2" onclick="shareOnTwitter('${videoId}')">Share on Twitter</button>
@@ -112,10 +112,10 @@
 
         // Function to share video on Twitter
         function shareOnTwitter(videoId) {
-            const publicUrl = `https://yourfitnessapp.com/view.html?videoId=${videoId}`;
+            const publicUrl = `https://jimp-lab.github.io/Videos/?videoId=${videoId}`;
             const tweetText = encodeURIComponent("Check out my workout video!");
             const twitterUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(publicUrl)}&text=${tweetText}`;
-            window.open(twitterUrl, '_blank');
+            window.open(twitterUrl, "_blank");
         }
 
         // Simulated video viewing for new users
@@ -126,8 +126,8 @@
                 return;
             }
 
-            const videoContainer = document.createElement('div');
-            videoContainer.classList.add('video-viewer', 'text-center');
+            const videoContainer = document.createElement("div");
+            videoContainer.classList.add("video-viewer", "text-center");
             videoContainer.innerHTML = `
                 <h3>Viewing Shared Video</h3>
                 <video src="${videoUrl}" controls autoplay></video>
@@ -139,7 +139,7 @@
 
         // Check URL for videoId to simulate viewing
         const urlParams = new URLSearchParams(window.location.search);
-        const videoId = urlParams.get('videoId');
+        const videoId = urlParams.get("videoId");
         if (videoId) {
             simulateView(videoId);
         }
