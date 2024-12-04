@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Shared Video</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .video-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        video {
+            width: 100%;
+            border-radius: 8px;
+        }
+
+        .alert {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="video-container" id="videoContainer">
+            <h2 class="mb-3">Shared Workout Video</h2>
+            <div id="videoDisplay">
+                <!-- Video will be displayed here -->
+            </div>
+        </div>
+        <div id="errorMessage" class="alert alert-danger mt-3">Video not found! Please check the link.</div>
+    </div>
+
+    <!-- JavaScript to handle video fetching -->
+    <script>
+        // Simulated server for testing
+        const simulatedServer = {
+            "video-12345": "https://www.w3schools.com/html/mov_bbb.mp4",
+            "video-67890": "https://www.w3schools.com/html/movie.mp4"
+        };
+
+        // Function to get the video ID from the URL
+        function getVideoIdFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('videoId');
+        }
+
+        // Function to display the video
+        function displayVideo(videoId) {
+            const videoUrl = simulatedServer[videoId];
+            const videoDisplay = document.getElementById("videoDisplay");
+            const errorMessage = document.getElementById("errorMessage");
+
+            if (videoUrl) {
+                videoDisplay.innerHTML = `
+                    <video src="${videoUrl}" controls autoplay></video>
+                `;
+                errorMessage.style.display = "none";
+            } else {
+                errorMessage.style.display = "block";
+            }
+        }
+
+        // Initialize the page by getting the video ID and displaying the video
+        const videoId = getVideoIdFromURL();
+        if (videoId) {
+            displayVideo(videoId);
+        } else {
+            document.getElementById("errorMessage").style.display = "block";
+        }
+    </script>
+</body>
+</html>
