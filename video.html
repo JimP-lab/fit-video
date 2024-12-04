@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness App - Video Upload</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 15px;
+        }
+
+        .upload-section {
+            padding: 20px;
+            border-radius: 8px;
+            background: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .scroll-section {
+            max-height: 400px;
+            overflow-y: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        .video-item video {
+            width: 100%;
+            max-width: 100%;
+            border-radius: 8px;
+        }
+
+        .btn-custom {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+
+        /* Invite button styling */
+        .invite-button {
+            width: 100%;
+            font-size: 16px;
+        }
+
+        /* Responsive tweaks */
+        @media (min-width: 768px) {
+            .scroll-section {
+                max-height: 600px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Upload Section -->
+        <div class="upload-section text-center mb-4">
+            <h2 class="mb-3">Upload Your Workout Video</h2>
+            <input type="file" id="videoInput" accept="video/*" class="form-control mb-3">
+            <button class="btn btn-primary btn-custom" onclick="uploadVideo()">Upload Video</button>
+        </div>
+        
+        <!-- Scroll Section for Uploaded Videos -->
+        <div class="scroll-section">
+            <h3 class="text-center mb-4">Your Videos</h3>
+            <div id="videoContainer" class="d-flex flex-column align-items-center">
+                <!-- Video items will be dynamically added here -->
+            </div>
+        </div>
+
+        <!-- Invite Button -->
+        <button class="btn btn-info mt-4 invite-button" onclick="generateInviteLink()">Invite Friends to Join</button>
+    </div>
+    
+    <!-- Bootstrap 5 JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Mock function to simulate uploading video
+        function uploadVideo() {
+            const videoInput = document.getElementById('videoInput').files[0];
+            if (!videoInput) return alert("Please select a video.");
+
+            const videoUrl = URL.createObjectURL(videoInput); // Generate a local URL to display the video
+            displayVideo(videoUrl);
+            alert("Video uploaded successfully!");
+        }
+
+        // Function to display video in the scroll section
+        function displayVideo(videoUrl) {
+            const videoContainer = document.getElementById('videoContainer');
+            
+            const videoItem = document.createElement('div');
+            videoItem.classList.add('video-item', 'text-center', 'my-3');
+            videoItem.innerHTML = `
+                <video src="${videoUrl}" controls class="mb-2"></video>
+                <button class="btn btn-secondary btn-sm" onclick="shareVideo('${videoUrl}')">Share</button>
+            `;
+            videoContainer.appendChild(videoItem);
+        }
+
+        // Mock function for sharing the video (social media simulation)
+        function shareVideo(videoUrl) {
+            alert(`Sharing video: ${videoUrl}`);
+            // In a real app, replace with social media sharing API
+        }
+
+        // Mock function to generate an invite link
+        function generateInviteLink() {
+            const inviteLink = "https://fitnessapp.com/invite?ref=uniqueUserId123";
+            alert("Invite link: " + inviteLink);
+        }
+    </script>
+</body>
+</html>
