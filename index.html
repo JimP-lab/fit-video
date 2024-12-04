@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -104,15 +105,28 @@
             videoItem.classList.add('video-item', 'text-center', 'my-3');
             videoItem.innerHTML = `
                 <video src="${videoUrl}" controls class="mb-2"></video>
-                <button class="btn btn-secondary btn-sm" onclick="shareVideo('${videoUrl}')">Share</button>
+                <button class="btn btn-secondary btn-sm mb-2" onclick="shareVideo('${videoUrl}')">Share</button>
+                <div class="d-flex justify-content-center">
+                    <a class="btn btn-primary btn-sm mx-1" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(videoUrl)}">Share on Facebook</a>
+                    <a class="btn btn-info btn-sm mx-1" target="_blank" href="https://twitter.com/intent/tweet?url=${encodeURIComponent(videoUrl)}&text=Check+out+my+workout+video!">Share on Twitter</a>
+                </div>
             `;
             videoContainer.appendChild(videoItem);
         }
 
-        // Mock function for sharing the video (social media simulation)
+        // Function for sharing the video using Web Share API or fallback
         function shareVideo(videoUrl) {
-            alert(`Sharing video: ${videoUrl}`);
-            // In a real app, replace with social media sharing API
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Workout Video',
+                    text: 'Check out my workout video!',
+                    url: videoUrl
+                })
+                .then(() => alert('Video shared successfully!'))
+                .catch(err => console.error('Sharing failed', err));
+            } else {
+                alert("Your browser doesn't support the Web Share API. Use the social buttons instead.");
+            }
         }
 
         // Mock function to generate an invite link
